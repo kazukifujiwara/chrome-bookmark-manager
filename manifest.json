@@ -1,8 +1,9 @@
 {
     "manifest_version": 3,
     "name": "Custom Bookmark Manager",
-    "version": "1.0",
+    "version": "1.2",
     "description": "A modern new tab page with bookmark management.",
+    "author": "Kazuki Fujiwara",
     "permissions": [
         "tabs",
         "favicon",
