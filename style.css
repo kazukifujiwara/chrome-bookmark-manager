@@ -54,8 +54,39 @@ body {
 
 header {
     display: flex;
-    justify-content: flex-end;
+    justify-content: space-between;
+    align-items: center;
     margin-bottom: 20px;
+    padding: 0 10px;
+}
+
+.search-wrapper {
+    flex-grow: 1;
+    max-width: 400px;
+    margin: 0 20px;
+}
+
+#search-input {
+    width: 100%;
+    padding: 10px 16px;
+    border: 1px solid transparent;
+    border-radius: 20px;
+    background-color: var(--card-bg);
+    color: var(--text-color);
+    font-size: 0.95em;
+    outline: none;
+    transition: all 0.2s ease;
+    box-shadow: var(--shadow);
+}
+
+#search-input:focus {
+    background-color: var(--bg-color);
+    border-color: rgba(0, 0, 0, 0.1);
+    box-shadow: 0 0 0 2px var(--primary-color);
+}
+
+body.dark-mode #search-input:focus {
+    border-color: rgba(255, 255, 255, 0.1);
 }
 
 .header-controls {

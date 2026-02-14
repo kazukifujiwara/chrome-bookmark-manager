@@ -13,6 +13,7 @@ A modern, card-style bookmark manager extension for Chrome that replaces the "Ne
     - **Reorder**: Drag and drop folders to change their order.
 - **Bookmark Management**:
     - Add, Edit, Delete bookmarks.
+    - **Reorder**: Drag and drop bookmarks within a folder.
     - Favicon support.
 - **Import/Export**:
     - **Export to Chrome HTML**: Generate a Netscape Bookmark File format HTML file compatible with Chrome/Firefox import.

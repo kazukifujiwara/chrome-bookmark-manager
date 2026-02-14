@@ -1,10 +1,12 @@
 // State
 let bookmarksData = [];
+let filteredBookmarks = null; // For search
 const STORAGE_KEY = 'bookmarks_data';
 const THEME_KEY = 'theme_preference';
 
 // DOM Elements
 const container = document.getElementById('bookmark-container');
+const searchInput = document.getElementById('search-input');
 const settingsBtn = document.getElementById('settings-btn');
 const settingsMenu = document.getElementById('settings-menu');
 const themeToggle = document.getElementById('theme-toggle');
@@ -105,8 +107,11 @@ async function loadTheme() {
 }
 
 // Rendering
-function renderBookmarks() {
+function renderBookmarks(dataToRender = null) {
     container.innerHTML = '';
+
+    // Use filtered data if search is active, otherwise full data
+    const data = dataToRender || (filteredBookmarks || bookmarksData);
 
     // Determine column count
     const width = window.innerWidth;
@@ -124,7 +129,7 @@ function renderBookmarks() {
     }
 
     // Distribute folders
-    bookmarksData.forEach((folder, folderIndex) => {
+    data.forEach((folder, folderIndex) => {
         const card = createFolderCard(folder, folderIndex);
         const colIndex = folderIndex % colCount;
         columns[colIndex].appendChild(card);
@@ -138,6 +143,46 @@ window.addEventListener('resize', () => {
     resizeTimeout = setTimeout(() => {
         renderBookmarks();
     }, 200);
+});
+
+// Search Logic
+searchInput.addEventListener('input', (e) => {
+    const query = e.target.value.toLowerCase().trim();
+    if (!query) {
+        filteredBookmarks = null;
+        renderBookmarks();
+        return;
+    }
+
+    filteredBookmarks = bookmarksData.map(folder => {
+        // Check if folder title matches
+        const folderMatches = folder.title.toLowerCase().includes(query);
+
+        // Check if any children match
+        const matchingChildren = folder.children.filter(bookmark =>
+            bookmark.title.toLowerCase().includes(query) ||
+            bookmark.url.toLowerCase().includes(query)
+        );
+
+        if (folderMatches) {
+            // If folder matches, show all children (or should we filter? Let's show all for context)
+            // returning copy to avoid mutating original for display
+            return {
+                ...folder,
+                expanded: true // Auto expand matching folders
+            };
+        } else if (matchingChildren.length > 0) {
+            // If folder doesn't match but children do, show folder with only matching children
+            return {
+                ...folder,
+                children: matchingChildren,
+                expanded: true // Auto expand
+            };
+        }
+        return null;
+    }).filter(folder => folder !== null);
+
+    renderBookmarks();
 });
 
 function createFolderCard(folder, folderIndex) {
