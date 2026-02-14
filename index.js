@@ -355,6 +355,66 @@ function createBookmarkItem(bookmark, parentId) {
     item.appendChild(linkWrapper);
     item.appendChild(actions);
 
+    // Bookmark Drag and Drop
+    item.setAttribute('draggable', 'true');
+
+    item.addEventListener('dragstart', (e) => {
+        e.stopPropagation(); // Prevent folder drag
+        e.dataTransfer.effectAllowed = 'move';
+        e.dataTransfer.setData('application/json', JSON.stringify({
+            type: 'bookmark',
+            parentId: parentId,
+            bookmarkId: bookmark.id
+        }));
+        item.classList.add('dragging');
+    });
+
+    item.addEventListener('dragend', (e) => {
+        e.stopPropagation();
+        item.classList.remove('dragging');
+        document.querySelectorAll('.bookmark-item').forEach(i => i.classList.remove('drag-over'));
+    });
+
+    item.addEventListener('dragover', (e) => {
+        e.preventDefault();
+        e.stopPropagation();
+        item.classList.add('drag-over');
+        e.dataTransfer.dropEffect = 'move';
+    });
+
+    item.addEventListener('dragleave', (e) => {
+        e.stopPropagation();
+        item.classList.remove('drag-over');
+    });
+
+    item.addEventListener('drop', (e) => {
+        e.preventDefault();
+        e.stopPropagation();
+        item.classList.remove('drag-over');
+
+        try {
+            const data = JSON.parse(e.dataTransfer.getData('application/json'));
+            if (data.type !== 'bookmark') return;
+
+            // Only allow reordering within the same folder for now
+            if (data.parentId !== parentId) return;
+
+            const folder = bookmarksData.find(f => f.id === parentId);
+            if (!folder) return;
+
+            const fromIndex = folder.children.findIndex(b => b.id === data.bookmarkId);
+            const toIndex = folder.children.findIndex(b => b.id === bookmark.id);
+
+            if (fromIndex !== -1 && toIndex !== -1 && fromIndex !== toIndex) {
+                const movedItem = folder.children.splice(fromIndex, 1)[0];
+                folder.children.splice(toIndex, 0, movedItem);
+                saveBookmarks();
+            }
+        } catch (err) {
+            console.error('Drop error', err);
+        }
+    });
+
     return item;
 }
 

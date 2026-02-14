@@ -264,6 +264,15 @@ body::after {
     background-color: var(--hover-bg);
 }
 
+.bookmark-item.dragging {
+    opacity: 0.5;
+    background-color: var(--hover-bg);
+}
+
+.bookmark-item.drag-over {
+    border-top: 2px solid var(--primary-color);
+}
+
 .bookmark-link-wrapper {
     flex-grow: 1;
     display: flex;
