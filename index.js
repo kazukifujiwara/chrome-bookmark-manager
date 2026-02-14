@@ -98,7 +98,7 @@ function saveBookmarks() {
 async function loadTheme() {
     chrome.storage.local.get([THEME_KEY], (result) => {
         if (result[THEME_KEY] === 'dark') {
-            document.body.setAttribute('data-theme', 'dark');
+            document.body.classList.add('dark-mode');
             themeToggle.textContent = '☀️';
         }
     });
@@ -465,13 +465,13 @@ function setupEventListeners() {
 
     // Theme
     themeToggle.addEventListener('click', () => {
-        const isDark = document.body.getAttribute('data-theme') === 'dark';
+        const isDark = document.body.classList.contains('dark-mode');
         if (isDark) {
-            document.body.removeAttribute('data-theme');
+            document.body.classList.remove('dark-mode');
             themeToggle.textContent = '🌙';
             chrome.storage.local.set({ [THEME_KEY]: 'light' });
         } else {
-            document.body.setAttribute('data-theme', 'dark');
+            document.body.classList.add('dark-mode');
             themeToggle.textContent = '☀️';
             chrome.storage.local.set({ [THEME_KEY]: 'dark' });
         }

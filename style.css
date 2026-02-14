@@ -1,31 +1,46 @@
 :root {
-    --primary-color: #34495e;
-    /* Updated to Grey */
-    --background-color: #f5f7fa;
+    /* Matte / Modern Palette (Zinc-inspired) */
+    --primary-color: #52525b;
+    /* Zinc 600 */
+    --hover-bg: #f4f4f5;
+    /* Zinc 100 */
+    --bg-color: #f4f4f5;
+    /* Zinc 100 - consistent background */
     --card-bg: #ffffff;
-    --text-color: #333;
-    --folder-header-bg: #f8f9fa;
-    --shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
-    --transition: all 0.3s ease;
-    --border-color: #eee;
-    --hover-bg: #f0f0f0;
+    --text-color: #27272a;
+    /* Zinc 800 */
+    --secondary-text: #71717a;
+    /* Zinc 500 */
+    --shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+    /* Subtle shadow */
+    --border-radius: 12px;
+    /* Slightly more rounded */
+    --folder-header-bg: #ffffff;
+
+    /* Dark Mode (Matte) */
+    --dark-bg: #18181b;
+    /* Zinc 950 */
+    --dark-card-bg: #27272a;
+    /* Zinc 800 */
+    --dark-text: #e4e4e7;
+    /* Zinc 200 */
+    --dark-hover: #3f3f46;
+    /* Zinc 700 */
+    --dark-folder-header: #27272a;
 }
 
-[data-theme="dark"] {
-    --primary-color: #5d6d7e;
-    /* Lighter Grey for Dark Mode */
-    --background-color: #121212;
-    --card-bg: #1e1e1e;
-    --text-color: #e0e0e0;
-    --folder-header-bg: #2c2c2c;
-    --shadow: 0 2px 5px rgba(0, 0, 0, 0.5);
-    --border-color: #333;
-    --hover-bg: #333;
+body.dark-mode {
+    --bg-color: var(--dark-bg);
+    --card-bg: var(--dark-card-bg);
+    --text-color: var(--dark-text);
+    --hover-bg: var(--dark-hover);
+    --folder-header-bg: var(--dark-folder-header);
+    --shadow: 0 1px 3px rgba(0, 0, 0, 0.4);
 }
 
 body {
-    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-    background-color: var(--background-color);
+    font-family: 'Inter', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+    background-color: var(--bg-color);
     color: var(--text-color);
     margin: 0;
     padding: 20px;
@@ -84,30 +99,31 @@ header {
 }
 
 .btn {
-    padding: 8px 16px;
-    border: none;
-    border-radius: 4px;
+    padding: 10px 18px;
+    border: 1px solid transparent;
+    border-radius: 8px;
     cursor: pointer;
     font-size: 0.9em;
-    transition: background-color 0.2s, filter 0.2s;
+    font-weight: 500;
+    transition: all 0.2s ease;
     background-color: var(--hover-bg);
-    /* Restored background */
     color: var(--text-color);
-    /* Restored text color */
 }
 
 .btn:hover {
-    filter: brightness(0.9);
+    filter: brightness(0.95);
+    transform: translateY(-1px);
 }
 
 .primary-btn {
     background-color: var(--primary-color);
-    color: white !important;
-    /* Force white text */
+    color: #fff;
+    border: none;
 }
 
 .primary-btn:hover {
     filter: brightness(1.1);
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
 }
 
 /* Footer Blocker */
@@ -120,7 +136,7 @@ body::after {
     left: 0;
     height: 40px;
     /* Height of the chrome footer */
-    background-color: var(--background-color);
+    background-color: var(--bg-color);
     z-index: 9998;
     /* Below settings menu but above footer */
     /* Let clicks pass through if needed, or set to auto to block */
@@ -160,18 +176,24 @@ body::after {
 }
 
 .folder-card {
-    background: var(--card-bg);
-    border-radius: 8px;
+    background-color: var(--card-bg);
+    border-radius: var(--border-radius);
     box-shadow: var(--shadow);
+    margin-bottom: 20px;
     overflow: hidden;
-    transition: var(--transition);
-    display: flex;
-    flex-direction: column;
-    /* Removed masonry properties */
+    break-inside: avoid;
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+    border: 1px solid rgba(0, 0, 0, 0.05);
+    /* Subtle border */
+}
+
+body.dark-mode .folder-card {
+    border: 1px solid rgba(255, 255, 255, 0.05);
 }
 
 .folder-card:hover {
-    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.15);
+    transform: translateY(-2px);
+    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.08);
 }
 
 .folder-card.dragging {
@@ -186,13 +208,17 @@ body::after {
 
 .folder-header {
     background: var(--folder-header-bg);
-    padding: 10px 15px;
+    padding: 16px;
     display: flex;
     justify-content: space-between;
     align-items: center;
     cursor: pointer;
-    border-bottom: 1px solid var(--border-color);
     user-select: none;
+    border-bottom: 1px solid rgba(0, 0, 0, 0.03);
+}
+
+body.dark-mode .folder-header {
+    border-bottom: 1px solid rgba(255, 255, 255, 0.03);
 }
 
 .folder-title-group {
