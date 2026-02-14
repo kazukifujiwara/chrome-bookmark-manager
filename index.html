@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="ja">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>New Tab</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+    <div class="container">
+        <header>
+            <div class="header-controls">
+                <button id="add-folder-btn" class="btn primary-btn">+ Folder</button>
+                <div class="settings-wrapper">
+                    <button id="settings-btn" class="btn icon-btn" aria-label="Settings">⚙️</button>
+                    <div id="settings-menu" class="settings-menu hidden">
+                        <div class="settings-item">
+                            <span>Theme (Light/Dark)</span>
+                            <button id="theme-toggle" class="btn icon-btn" aria-label="Toggle Dark Mode">🌙</button>
+                        </div>
+                        <div class="settings-item">
+                            <button id="export-btn" class="btn" style="width: 100%; text-align: left;">Export
+                                JSON</button>
+                        </div>
+                        <div class="settings-item">
+                            <button id="export-chrome-btn" class="btn" style="width: 100%; text-align: left;">Export to
+                                Chrome HTML</button>
+                        </div>
+                        <div class="settings-item">
+                            <button id="import-btn" class="btn" style="width: 100%; text-align: left;">Import
+                                Data</button>
+                            <input type="file" id="import-file" accept=".json" style="display: none;">
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </header>
+        <main id="bookmark-container">
+            <!-- Bookmarks showing here -->
+        </main>
+        <footer id="app-footer"></footer>
+    </div>
+
+    <!-- Dialogs -->
+    <dialog id="folder-dialog">
+        <form method="dialog" id="folder-form">
+            <h2 id="folder-dialog-title">Add Folder</h2>
+            <input type="hidden" id="folder-id">
+            <div class="form-group">
+                <label for="folder-name">Name</label>
+                <input type="text" id="folder-name" required>
+            </div>
+            <div class="form-group">
+                <label for="folder-icon">Icon URL (Optional)</label>
+                <input type="url" id="folder-icon" placeholder="https://example.com/icon.png">
+            </div>
+            <div class="form-group" style="display: flex; align-items: center; gap: 10px;">
+                <input type="checkbox" id="folder-default-open" style="width: auto;">
+                <label for="folder-default-open" style="margin: 0; cursor: pointer;">Open by default</label>
+            </div>
+            <div class="dialog-actions">
+                <button type="button" class="btn" id="cancel-folder">Cancel</button>
+                <button type="submit" class="btn primary-btn">Save</button>
+            </div>
+        </form>
+    </dialog>
+
+    <dialog id="bookmark-dialog">
+        <form method="dialog" id="bookmark-form">
+            <h2 id="bookmark-dialog-title">Add Bookmark</h2>
+            <input type="hidden" id="bookmark-id">
+            <input type="hidden" id="bookmark-parent-id">
+            <div class="form-group">
+                <label for="bookmark-title">Title</label>
+                <input type="text" id="bookmark-title" required>
+            </div>
+            <div class="form-group">
+                <label for="bookmark-url">URL</label>
+                <input type="url" id="bookmark-url" required>
+            </div>
+            <div class="dialog-actions">
+                <button type="button" class="btn" id="cancel-bookmark">Cancel</button>
+                <button type="submit" class="btn primary-btn">Save</button>
+            </div>
+        </form>
+    </dialog>
+
+    <script src="index.js"></script>
+</body>
+
+</html>

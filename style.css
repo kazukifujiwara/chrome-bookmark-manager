@@ -1,0 +1,372 @@
+:root {
+    --primary-color: #34495e;
+    /* Updated to Grey */
+    --background-color: #f5f7fa;
+    --card-bg: #ffffff;
+    --text-color: #333;
+    --folder-header-bg: #f8f9fa;
+    --shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+    --transition: all 0.3s ease;
+    --border-color: #eee;
+    --hover-bg: #f0f0f0;
+}
+
+[data-theme="dark"] {
+    --primary-color: #5d6d7e;
+    /* Lighter Grey for Dark Mode */
+    --background-color: #121212;
+    --card-bg: #1e1e1e;
+    --text-color: #e0e0e0;
+    --folder-header-bg: #2c2c2c;
+    --shadow: 0 2px 5px rgba(0, 0, 0, 0.5);
+    --border-color: #333;
+    --hover-bg: #333;
+}
+
+body {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    background-color: var(--background-color);
+    color: var(--text-color);
+    margin: 0;
+    padding: 20px;
+    transition: background-color 0.3s, color 0.3s;
+}
+
+.container {
+    max-width: 1200px;
+    margin: 0 auto;
+}
+
+header {
+    display: flex;
+    justify-content: flex-end;
+    margin-bottom: 20px;
+}
+
+.header-controls {
+    display: flex;
+    gap: 10px;
+    align-items: center;
+}
+
+.settings-wrapper {
+    position: relative;
+    display: inline-block;
+}
+
+.settings-menu {
+    position: absolute;
+    top: 100%;
+    right: 0;
+    margin-top: 5px;
+    background-color: var(--card-bg);
+    border: 1px solid var(--border-color);
+    border-radius: 8px;
+    box-shadow: var(--shadow);
+    padding: 10px;
+    min-width: 150px;
+    z-index: 100;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+.settings-menu.hidden {
+    display: none;
+}
+
+.settings-item {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    font-size: 0.9em;
+    color: var(--text-color);
+}
+
+.btn {
+    padding: 8px 16px;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    font-size: 0.9em;
+    transition: background-color 0.2s, filter 0.2s;
+    background-color: var(--hover-bg);
+    /* Restored background */
+    color: var(--text-color);
+    /* Restored text color */
+}
+
+.btn:hover {
+    filter: brightness(0.9);
+}
+
+.primary-btn {
+    background-color: var(--primary-color);
+    color: white !important;
+    /* Force white text */
+}
+
+.primary-btn:hover {
+    filter: brightness(1.1);
+}
+
+/* Footer Blocker */
+body::after {
+    content: "";
+    display: block;
+    position: fixed;
+    bottom: 0;
+    right: 0;
+    left: 0;
+    height: 40px;
+    /* Height of the chrome footer */
+    background-color: var(--background-color);
+    z-index: 9998;
+    /* Below settings menu but above footer */
+    /* Let clicks pass through if needed, or set to auto to block */
+}
+
+#app-footer {
+    position: fixed;
+    bottom: 5px;
+    right: 15px;
+    font-size: 0.8em;
+    color: var(--text-color);
+    opacity: 0.6;
+    z-index: 9999;
+    /* Above the footer blocker */
+    pointer-events: none;
+}
+
+.icon-btn {
+    padding: 8px;
+    font-size: 1.2em;
+    line-height: 1;
+}
+
+#bookmark-container {
+    display: flex;
+    gap: 20px;
+    align-items: flex-start;
+}
+
+.bookmark-column {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    min-width: 0;
+    /* Prevents flex items from overflowing */
+}
+
+.folder-card {
+    background: var(--card-bg);
+    border-radius: 8px;
+    box-shadow: var(--shadow);
+    overflow: hidden;
+    transition: var(--transition);
+    display: flex;
+    flex-direction: column;
+    /* Removed masonry properties */
+}
+
+.folder-card:hover {
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.15);
+}
+
+.folder-header {
+    background: var(--folder-header-bg);
+    padding: 10px 15px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    cursor: pointer;
+    border-bottom: 1px solid var(--border-color);
+    user-select: none;
+}
+
+.folder-title-group {
+    display: flex;
+    align-items: center;
+    flex-grow: 1;
+    overflow: hidden;
+}
+
+.folder-title {
+    font-weight: 600;
+    font-size: 1.1em;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    margin-right: 10px;
+}
+
+.folder-icon-img {
+    width: 24px;
+    height: 24px;
+    margin-right: 10px;
+    object-fit: contain;
+    border-radius: 4px;
+}
+
+.folder-actions {
+    display: flex;
+    gap: 5px;
+    opacity: 0;
+    transition: opacity 0.2s;
+}
+
+.folder-header:hover .folder-actions,
+.bookmark-item:hover .bookmark-actions {
+    opacity: 1;
+}
+
+.folder-content {
+    max-height: 0;
+    overflow: hidden;
+    transition: max-height 0.3s ease-out;
+}
+
+.folder-content.expanded {
+    max-height: 500px;
+    overflow-y: auto;
+}
+
+.bookmark-list {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+
+.bookmark-item {
+    padding: 8px 15px;
+    border-bottom: 1px solid var(--border-color);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.bookmark-item:last-child {
+    border-bottom: none;
+}
+
+.bookmark-item:hover {
+    background-color: var(--hover-bg);
+}
+
+.bookmark-link-wrapper {
+    flex-grow: 1;
+    display: flex;
+    align-items: center;
+    overflow: hidden;
+    margin-right: 10px;
+}
+
+.bookmark-link {
+    text-decoration: none;
+    color: var(--text-color);
+    display: flex;
+    align-items: center;
+    width: 100%;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.favicon {
+    width: 16px;
+    height: 16px;
+    margin-right: 10px;
+    flex-shrink: 0;
+}
+
+.bookmark-actions {
+    display: flex;
+    gap: 5px;
+    opacity: 0;
+    transition: opacity 0.2s;
+}
+
+.action-btn {
+    background: none;
+    border: none;
+    cursor: pointer;
+    font-size: 0.8em;
+    padding: 4px 8px;
+    border-radius: 4px;
+    color: var(--text-color);
+    opacity: 0.7;
+    transition: opacity 0.2s, background-color 0.2s;
+}
+
+.action-btn:hover {
+    background-color: rgba(128, 128, 128, 0.1);
+    opacity: 1;
+    text-decoration: underline;
+}
+
+.toggle-icon {
+    margin-right: 10px;
+    transition: transform 0.3s;
+    font-size: 0.8em;
+    color: var(--text-color);
+}
+
+.folder-header.expanded .toggle-icon {
+    transform: rotate(90deg);
+}
+
+.folder-add-btn-wrapper {
+    padding: 10px;
+    text-align: center;
+    background-color: var(--folder-header-bg);
+    border-top: 1px solid var(--border-color);
+}
+
+.add-bm-btn {
+    width: 100%;
+    font-size: 0.8em;
+}
+
+/* Dialog Styles */
+dialog {
+    border: none;
+    border-radius: 8px;
+    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.2);
+    padding: 20px;
+    max-width: 400px;
+    width: 100%;
+    background-color: var(--card-bg);
+    color: var(--text-color);
+}
+
+dialog::backdrop {
+    background-color: rgba(0, 0, 0, 0.5);
+}
+
+.form-group {
+    margin-bottom: 15px;
+}
+
+.form-group label {
+    display: block;
+    margin-bottom: 5px;
+    font-weight: 500;
+}
+
+.form-group input {
+    width: 100%;
+    padding: 8px;
+    border: 1px solid var(--border-color);
+    border-radius: 4px;
+    box-sizing: border-box;
+    background-color: var(--background-color);
+    color: var(--text-color);
+}
+
+.dialog-actions {
+    display: flex;
+    justify-content: flex-end;
+    gap: 10px;
+    margin-top: 20px;
+}
