@@ -7,6 +7,8 @@ All notable changes to this project will be documented in this file.
 ### Added
 - **Folder Reordering**: Drag and drop functionality to reorder folders.
 - **Bookmark Reordering**: Drag and drop functionality to reorder bookmarks within a folder.
+- **Search**: Real-time filtering of bookmarks and folders by name or URL.
+- **UI Refinement**: Moved "Add Bookmark" button to folder header for a cleaner look.
 
 ## [1.0.0] - 2026-02-14
 

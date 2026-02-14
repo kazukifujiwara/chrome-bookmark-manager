@@ -221,6 +221,15 @@ function createFolderCard(folder, folderIndex) {
     const actions = document.createElement('div');
     actions.className = 'folder-actions';
 
+    const addBmBtn = document.createElement('button');
+    addBmBtn.className = 'action-btn add-bm-btn';
+    addBmBtn.title = 'Add Bookmark';
+    addBmBtn.textContent = '+';
+    addBmBtn.onclick = (e) => {
+        e.stopPropagation();
+        openBookmarkDialog(folder.id);
+    };
+
     const openAllBtn = document.createElement('button');
     openAllBtn.className = 'action-btn';
     openAllBtn.title = 'Open All';
@@ -253,6 +262,7 @@ function createFolderCard(folder, folderIndex) {
     actions.appendChild(openAllBtn);
     actions.appendChild(editBtn);
     actions.appendChild(deleteBtn);
+    actions.appendChild(addBmBtn);
 
     header.appendChild(titleGroup);
     header.appendChild(actions);
@@ -274,16 +284,7 @@ function createFolderCard(folder, folderIndex) {
         list.appendChild(item);
     });
 
-    const addBtnWrapper = document.createElement('div');
-    addBtnWrapper.className = 'folder-add-btn-wrapper';
-    const addBmBtn = document.createElement('button');
-    addBmBtn.className = 'btn add-bm-btn';
-    addBmBtn.textContent = '+ Add Bookmark';
-    addBmBtn.onclick = () => openBookmarkDialog(folder.id);
-    addBtnWrapper.appendChild(addBmBtn);
-
     content.appendChild(list);
-    content.appendChild(addBtnWrapper);
 
     card.appendChild(header);
     card.appendChild(content);

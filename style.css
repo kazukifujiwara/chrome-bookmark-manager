@@ -367,18 +367,16 @@ body.dark-mode .folder-header {
     background: none;
     border: none;
     cursor: pointer;
-    font-size: 0.8em;
+    font-size: 0.9em;
+    color: var(--secondary-text);
     padding: 4px 8px;
     border-radius: 4px;
-    color: var(--text-color);
-    opacity: 0.7;
-    transition: opacity 0.2s, background-color 0.2s;
+    transition: all 0.2s ease;
 }
 
 .action-btn:hover {
-    background-color: rgba(128, 128, 128, 0.1);
-    opacity: 1;
-    text-decoration: underline;
+    background-color: var(--hover-bg);
+    color: var(--text-color);
 }
 
 .toggle-icon {
