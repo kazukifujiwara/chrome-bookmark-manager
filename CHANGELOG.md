@@ -6,6 +6,7 @@ All notable changes to this project will be documented in this file.
 
 ### Added
 - **Folder Reordering**: Drag and drop functionality to reorder folders.
+- **Bookmark Reordering**: Drag and drop functionality to reorder bookmarks within a folder.
 
 ## [1.0.0] - 2026-02-14
 
