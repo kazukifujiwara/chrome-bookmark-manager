@@ -4,6 +4,7 @@ A modern, card-style bookmark manager extension for Chrome that replaces the "Ne
 
 ## Features
 
+- **Search**: Instantly find bookmarks and folders with real-time filtering.
 - **Masonry Layout**: beautiful card-based layout for folders.
 - **Dark Mode**: Support for Light and Dark themes (persisted).
 - **Folder Management**:
