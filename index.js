@@ -260,9 +260,44 @@ function createFolderCard(folder, folderIndex) {
             toggleIcon.style.transform = 'rotate(90deg)';
             folder.expanded = true;
         }
-        // Save expanded state implicitly if desired, but expensive to save on every click. 
-        // For now, let's leave it as UI state or debounce check.
-        // If user wants persistence, I can add saveBookmarks() here.
+    });
+
+    // Drag and Drop Logic
+    card.setAttribute('draggable', 'true');
+
+    card.addEventListener('dragstart', (e) => {
+        e.dataTransfer.effectAllowed = 'move';
+        e.dataTransfer.setData('text/plain', folderIndex);
+        card.classList.add('dragging');
+    });
+
+    card.addEventListener('dragend', () => {
+        card.classList.remove('dragging');
+        document.querySelectorAll('.folder-card').forEach(c => c.classList.remove('drag-over'));
+    });
+
+    card.addEventListener('dragover', (e) => {
+        e.preventDefault(); // Necessary to allow dropping
+        e.dataTransfer.dropEffect = 'move';
+        card.classList.add('drag-over');
+    });
+
+    card.addEventListener('dragleave', () => {
+        card.classList.remove('drag-over');
+    });
+
+    card.addEventListener('drop', (e) => {
+        e.preventDefault();
+        const fromIndex = parseInt(e.dataTransfer.getData('text/plain'));
+        const toIndex = folderIndex;
+
+        if (fromIndex !== toIndex) {
+            // Reorder array
+            const movedItem = bookmarksData.splice(fromIndex, 1)[0];
+            bookmarksData.splice(toIndex, 0, movedItem);
+            saveBookmarks(); // This will also renderBookmarks()
+        }
+        card.classList.remove('drag-over');
     });
 
     return card;
