@@ -2,6 +2,11 @@
 
 All notable changes to this project will be documented in this file.
 
+## [1.1.0] - 2026-02-14
+
+### Added
+- **Folder Reordering**: Drag and drop functionality to reorder folders.
+
 ## [1.0.0] - 2026-02-14
 
 ### Added

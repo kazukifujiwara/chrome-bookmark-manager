@@ -10,6 +10,7 @@ A modern, card-style bookmark manager extension for Chrome that replaces the "Ne
     - Create, Edit, Delete folders.
     - Custom Icon support (URL).
     - **Default Open/Close State**: Choose whether a folder is expanded by default.
+    - **Reorder**: Drag and drop folders to change their order.
 - **Bookmark Management**:
     - Add, Edit, Delete bookmarks.
     - Favicon support.
